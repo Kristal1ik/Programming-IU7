@@ -1,9 +1,27 @@
 import math
 
-z = 8
-print(math.log(z, 2))
-print(math.sin(math.radians(17)))
-print(3 ** (z + 2))
-print(math.e ** 3 - 10 ** (-1.4))
-print(math.cbrt(88))  # python 3.12
+# z = 8
+# print(math.log(z, 2))
+# print(math.sin(math.radians(17)))
+# print(3 ** (z + 2))
+# print(math.e ** 3 - 10 ** (-1.4))
+# # print(math.cbrt(88))  # python 3.12
+#
+# # В случае середины округляет до ближайшего четного
+# print(round(4.5))
+# print(round(5.5))
+#
+# print(math.trunc(3.54))  # усекает значение X до целого
+# print(math.floor(-0.5))  # округляет в меньшую сторону
+
+
+#  Известна квартира, вывести подъезд и этаж
+x = int(input())  # номер квартиры
+entrance = math.ceil(x / (9 * 4))
+floor = math.ceil(((x - 1) % 36) // 4 + 1)
+print(entrance, floor)
+
+
+#  0.25 литров -- бутылка, возможна сдача. Во вт сдали сдачу и купили бутылки. Вводится цена за бутылку и стоимость обмена бутылки на деньги.
+#  Делали это до пятницы. В пятницу осталось денег на одну бутылку без сдачи. Определите минимальную сумму, которая была в пн
 
