@@ -14,38 +14,40 @@ import math
 
 # Объявление необходимых булевых значений, необходимых по условию задачи
 is_in_triangle = False
-print("Введите координаты точки А")
+
+print("Введите координаты первой точки")
 x_a = int(input("x: "))
 y_a = int(input("y: "))
-print("Введите координаты точки B")
+print("Введите координаты второй точки")
 x_b = int(input("x: "))
 y_b = int(input("y "))
-print("Введите координаты точки C")
+print("Введите координаты третьей точки")
 x_c = int(input("x: "))
 y_c = int(input("y: "))
 
+
 # Вычисление длин сторон
-ab_ = math.sqrt((x_b - x_a) ** 2 + (y_b - y_a) ** 2)
-ac_ = math.sqrt((x_c - x_a) ** 2 + (y_c - y_a) ** 2)
-bc_ = math.sqrt((x_c - x_b) ** 2 + (y_c - y_b) ** 2)
-if not ((ab_ + ac_ <= bc_) or (ac_ >= ab_ + bc_) or (ab_ >= ac_ + bc_)):
+ab = math.sqrt((x_b - x_a) ** 2 + (y_b - y_a) ** 2)
+ac = math.sqrt((x_c - x_a) ** 2 + (y_c - y_a) ** 2)
+bc = math.sqrt((x_c - x_b) ** 2 + (y_c - y_b) ** 2)
+if not ((ab + ac <= bc) or (ac >= ab + bc) or (ab >= ac + bc)):
     print("-" * 50)
+    a = max(ab, bc, ac)
+    b = min(ab, bc, ac)
+    c = ab + bc + ac - a - b
     # Наибольший угол лежит напротив наибольшей стороны
-    ab = max(ab_, ac_, bc_)
-    ac = min(ab_, ac_, bc_)
-    bc = ab_ + ac_ + bc_ - ab - ac
-    m_ab = 0.5 * (math.sqrt(2 * ac ** 2 + 2 * bc ** 2 - ab ** 2))
-    print(f"AB= {ab:.7g}\n"
-          f"BC= {bc:.7g}\n"
-          f"AC= {ac:.7g}")
-    print(f"Медиана из тупого угла равна: {m_ab:.7g}")
+    m_ab = 0.5 * (math.sqrt(2 * c ** 2 + 2 * b ** 2 - a ** 2))
+    print(f"AB = {ab:.7g}\n"
+          f"BC = {bc:.7g}\n"
+          f"AC = {ac:.7g}")
 
-    # Проверка на тупоугольность
-    if abs((ac ** 2 + bc ** 2) - (ab ** 2)) < math.e:
+    # Определение вида треугольника
+    if abs((b ** 2 + c ** 2) - (a ** 2)) < 1e-6:
         print("Треугольник прямоугольнй")
-    elif ab ** 2 > (ac ** 2 + bc ** 2):
+        print(f"Медиана из прямого угла равна: {m_ab:.7g}")
+    elif a ** 2 > (c ** 2 + b ** 2):
         print("Треугольник тупоугольный")
-
+        print(f"Медиана из тупого угла равна: {m_ab:.7g}")
     else:
         print("Треугольник остроугольный")
     print("-" * 50)
@@ -66,19 +68,25 @@ if not ((ab_ + ac_ <= bc_) or (ac_ >= ab_ + bc_) or (ab_ >= ac_ + bc_)):
         print("Точка лежит вне треугольника")
     if is_in_triangle:
         # Нахождение наименьшего расстояния от точки до прямой
-        x_center_ab = (x_b + x_a) / 2
-        y_center_ab = (y_b + y_a) / 2
-        distance_ab = abs(math.sqrt((x_center_ab - x_new) ** 2 + (y_center_ab - y_new) ** 2))
+        new_to_a = math.sqrt((x_new - x_a) ** 2 + (y_new - y_a) ** 2)
+        new_to_b = math.sqrt((x_new - x_b) ** 2 + (y_new - y_b) ** 2)
+        new_to_c = math.sqrt((x_new - x_c) ** 2 + (y_new - y_c) ** 2)
 
-        x_center_ac = (x_c + x_a) / 2
-        y_center_ac = (y_c + y_a) / 2
-        distance_ac = abs(math.sqrt((x_center_ac - x_new) ** 2 + (y_center_ac - y_new) ** 2))
+        p_abnew = (new_to_a + new_to_b + ab) / 2
+        p_bcnew = (new_to_b + new_to_c + bc) / 2
+        p_acnew = (new_to_a + new_to_c + ac) / 2
 
-        x_center_bc = (x_c + x_b) / 2
-        y_center_bc = (y_c + y_b) / 2
-        distance_bc = abs(math.sqrt((x_center_bc - x_new) ** 2 + (y_center_bc - y_new) ** 2))
-        min_distance = min(distance_ab, distance_ac, distance_bc)
-        print(f"Минимальное расстояние от точки до одной из сторон = {min_distance}")
+        s_abnew = math.sqrt(p_abnew * (p_abnew - new_to_a) * (p_abnew - new_to_b) * (p_abnew - ab))
+        h_abnew = (2 * s_abnew) / ab
+
+        s_bcnew = math.sqrt(p_bcnew * (p_bcnew - new_to_b) * (p_bcnew - new_to_c) * (p_bcnew - bc))
+        h_bcnew = (2 * s_bcnew) / bc
+
+        s_acnew = math.sqrt(p_acnew * (p_acnew - new_to_a) * (p_acnew - new_to_c) * (p_acnew - ac))
+        h_acnew = (2 * s_acnew) / ac
+
+        min_distance = min(h_abnew, h_acnew, h_bcnew)
+        print(f"Минимальное расстояние от точки до одной из сторон = {min_distance:.7g}")
         print("-" * 50)
 else:
     print("Это не треугольник")
@@ -88,4 +96,9 @@ else:
 0 5
 5 0
 0 -1
+
+0 0
+3 1
+4 -2
+3 0
 '''
