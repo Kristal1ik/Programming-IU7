@@ -14,7 +14,7 @@ import math
 
 # Объявление необходимых булевых значений, необходимых по условию задачи
 is_in_triangle = False
-
+eps = 1e-6
 print("Введите координаты первой точки")
 x_a = int(input("x: "))
 y_a = int(input("y: "))
@@ -24,7 +24,6 @@ y_b = int(input("y "))
 print("Введите координаты третьей точки")
 x_c = int(input("x: "))
 y_c = int(input("y: "))
-
 
 # Вычисление длин сторон
 ab = math.sqrt((x_b - x_a) ** 2 + (y_b - y_a) ** 2)
@@ -42,7 +41,7 @@ if not ((ab + ac <= bc) or (ac >= ab + bc) or (ab >= ac + bc)):
           f"AC = {ac:.7g}")
 
     # Определение вида треугольника
-    if abs((b ** 2 + c ** 2) - (a ** 2)) < 1e-6:
+    if abs((b ** 2 + c ** 2) - (a ** 2)) < eps:
         print("Треугольник прямоугольнй")
         print(f"Медиана из прямого угла равна: {m_ab:.7g}")
     elif a ** 2 > (c ** 2 + b ** 2):
@@ -57,11 +56,11 @@ if not ((ab + ac <= bc) or (ac >= ab + bc) or (ab >= ac + bc)):
     y_new = int(input("Введите координату у новой точки: "))
 
     # Проверка на принадлежность точки треугольнику
-    abc = abs((x_a * (y_b - y_c) + x_b * (y_c - y_a) + x_c * (y_a - y_b)) / 2.0)
-    newbc = abs((x_new * (y_b - y_c) + x_b * (y_c - y_new) + x_c * (y_new - y_b)) / 2.0)
-    newac = abs((x_a * (y_new - y_c) + x_new * (y_c - y_a) + x_c * (y_a - y_new)) / 2.0)
-    newab = abs((x_a * (y_b - y_new) + x_b * (y_new - y_a) + x_new * (y_a - y_b)) / 2.0)
-    if abc == newbc + newac + newab:
+    abc = abs((x_a * (y_b - y_c) + x_b * (y_c - y_a) + x_c * (y_a - y_b)) / 2)
+    newbc = abs((x_new * (y_b - y_c) + x_b * (y_c - y_new) + x_c * (y_new - y_b)) / 2)
+    newac = abs((x_a * (y_new - y_c) + x_new * (y_c - y_a) + x_c * (y_a - y_new)) / 2)
+    newab = abs((x_a * (y_b - y_new) + x_b * (y_new - y_a) + x_new * (y_a - y_b)) / 2)
+    if abc - (newbc + newac + newab) < eps:
         print("Точка находится внутри треугольника")
         is_in_triangle = True
     else:
