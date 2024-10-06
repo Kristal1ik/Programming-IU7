@@ -3,9 +3,9 @@ import math
 # g0 = float(input("Введите начальное значение: "))
 # gn = float(input("Введите конечное значение: "))
 # step = float(input("Введите шаг: "))
-g0 = -2
-gn = 0.5
-step = 0.1
+g0 = -20
+gn = 5
+step = 1
 a2_count = 0
 header1 = "g"
 header2 = "a1"
@@ -15,14 +15,15 @@ table = ""
 print("-" * 60)
 print(f"|{header1:^14}|{header2:^14}|{header3:^14}|{header4:^14}|")
 print("-" * 60)
-for i in range(0, int(abs((g0 - gn) / step))):
+for i in range(g0, gn + 1, step):
+    g0 = i / 10
     a1 = g0 ** 3 + 6.1 * g0 ** 2 - 35.4 * g0 - 25.7
     a2 = g0 ** 2 - math.cos(math.pi * g0)
     a3 = math.sqrt((a1 ** 2) + (a2 ** 2))
     if a2 > 0:
         a2_count += 1
     table += f"|{g0:^14.5g}|{a1:^14.5g}|{a2:^14.5g}|{a3:^14.5g}|\n"
-    g0 += step
+
 print(table[:-1])
 print("-" * 60)
 print("Количество положительных значений a2(g) =", a2_count)
