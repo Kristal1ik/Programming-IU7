@@ -5,7 +5,7 @@ step_flag = False
 start = float(input("Введите начальное значение аргумента: "))
 finish = float(input("Введите конечное значение аргумента (должно быть больше начального значения): "))
 while finish <= start:
-    print("Число должно быть больше начального значения!")
+    print("Число должно быть больше начального значения! Начальное значение =", start)
     finish = float(input("Введите конечное значение аргумента (должно быть больше начального значения): "))
 step = float(input("Введите шаг разбиения отрезка (>0): "))
 while not step_flag:
@@ -62,7 +62,7 @@ while True:  # Проверка на входное число
         print('Количество засечек должно быть от 4 до 8!')
 
 free_space = width - len(f"{start:.5g}")  # Место для засечек
-
+print("График функции a3 = sqrt(a1^2 + a2^2)")
 # Вывод засечек
 print(" " * 14 + f"{a3_min:.5g}", end="")
 
@@ -98,3 +98,4 @@ for i in range(int((finish - start) / step) + 1):
         print(" " * current_x + "*" + " " * (zero - current_x - 1) + "|" + " " * (width - zero - 1))
     else:
         print(" " * current_x + "*" + " " * (width - current_x - 1))
+
