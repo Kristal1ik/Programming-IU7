@@ -9,13 +9,13 @@ step = float(input())
 a2_count = 0
 iteration = 0
 dial_length = 12
-max_value = 4
-min_value = 4 - gn ** 2
+max_value = 2
+min_value = 0
 max_a3_value_difference = (max_value - min_value)
 width = 80
 ratio = max_a3_value_difference / width
 serifs = 2
-label = "График функции y = 4 - x^2"
+label = "График функции y = cos(x) "
 print(dial_length * ' ' + label)
 dist = width // serifs
 print("{1:>{0}.6g}".format(dial_length, min_value), end='')
@@ -24,7 +24,7 @@ print("{0:>{1}}\n {2:>{1}}>".format('y', dial_length + 82, 82 * "-"))
 x_pos = abs(int((- min_value) / ratio))
 for i in range(int((gn - g0) / step) + 1):
     x_current = g0 + i * step
-    y1_cur_value = 4 - x_current ** 2
+    y1_cur_value = math.cos(x_current) + 1
     cur_y1_value_and_min_difference = (y1_cur_value - min_value) + \
                                       (y1_cur_value == min_value) * \
                                       ((max_value == min_value))
