@@ -9,15 +9,15 @@ for i in range(1, n + 1):
     lst.append(number)
 print("-" * 45)
 ind = int(input("Из какого места хотите удалить элемент? (индекс, индексация с нуля): "))
-while ind >= n:
-    print(f"Введенный индекс выходит за пределы диапазона! Размер списка = {n}, индексация с нуля.")
+while ind >= n or ind < 0:
+    print(f"Введенный индекс выходит за пределы диапазона! Размер списка = {n}, индексация с нуля. Индекс должен быть больше 0")
     ind = int(input("Из какого места хотите удалить элемент? (индекс, индексация с нуля): "))
-lst_new = []
-for i in range(n):
-    if i == ind:
-        continue
-    else:
-        lst_new.append(lst[i])
+
+for i in range(ind + 1, len(lst)):
+    lst[i - 1] = lst[i]
+
+lst[len(lst) - 1] = None
+del lst[len(lst) - 1]
 print("-" * 45)
 print(f"Удален {ind} элемент")
 print("Новый список: ")
