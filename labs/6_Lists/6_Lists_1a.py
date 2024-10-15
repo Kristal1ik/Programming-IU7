@@ -14,8 +14,8 @@ while ind >= n:
     ind = int(input("В какое место хотите добавить элемент? (индекс, индексация с нуля): "))
 
 number = int(input(f"Введите число, которое хотите добавить в заданное место ({ind}): "))
-lst[ind] = number
+lst = lst[:ind] + [number] + lst[ind:]
 print("-" * 45)
 print("Новый список: ")
-for i in range(1, n + 1):
+for i in range(1, n + 2):
     print(f"{i} элемент = {lst[i - 1]}")
