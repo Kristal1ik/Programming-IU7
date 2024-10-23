@@ -23,7 +23,7 @@ print("-" * 45)
 
 for i in lst:
     counter = 0
-    for j in i:
+    for j in i.lower():
         if j in vowels:
             counter += 1
     if counter > len(elem_answer):
