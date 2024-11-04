@@ -20,4 +20,5 @@ for i in range(n):
     for j in range(i + 1, n):
         mx[i][j], mx[j][i] = mx[j][i], mx[i][j]
 for row in mx:
-    print(*row)
+    formatted_row = ''.join(f"{str(item):>{5}}" for item in row)
+    print(formatted_row)

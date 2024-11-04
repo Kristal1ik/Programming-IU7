@@ -33,4 +33,5 @@ if max_row_index != -1 and min_row_index != -1:
     mx[max_row_index], mx[min_row_index] = mx[min_row_index], mx[max_row_index]
 
 for row in mx:
-    print(*row)
+    formatted_row = ''.join(f"{str(item):>{5}}" for item in row)
+    print(formatted_row)

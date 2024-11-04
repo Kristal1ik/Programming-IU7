@@ -36,4 +36,5 @@ for i in range(n):
     mx[i][max_col_index], mx[i][min_col_index] = mx[i][min_col_index], mx[i][max_col_index]
 
 for row in mx:
-    print(*row)
+    formatted_row = ''.join(f"{str(item):>{5}}" for item in row)
+    print(formatted_row)
