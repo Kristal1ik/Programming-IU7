@@ -10,7 +10,7 @@
 
 
 def matrix_output(matrix, name):
-    print("-" * 20 + f"Матрица {name}" + "-" * 20)
+    print("-" * 20 + f" Матрица {name} " + "-" * 20)
     for i in matrix:
         formatted_row = ''.join(f"{str(item):>{5}}" for item in i)
         print(formatted_row)
@@ -30,14 +30,20 @@ while m <= 0:
 for i in range(n):
     mx_n = []
     for j in range(m):
-        item = int(input(f"Введите {j + 1} элемент {i + 1} строки: "))
+        item = str(input(f"Введите {j + 1} элемент {i + 1} строки: "))
         mx_n.append(item)
     mx.append(mx_n)
+
 new_mx = []
 vowels = "aeiouAEIOU"
-consonant = "bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ"
-for i in mx:
-    new_mx.append([lambda char: char.lower() if char in vowels else char.upper() if char in consonant else char])
+consonants = "bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ"
 
-matrix_output(mx, "Введенная матрица")
-matrix_output(new_mx, "Преобразованная матрица")
+for row in mx:
+    new_row = []
+    for char in row:
+        transformed_char = char.lower() if char in vowels else char.upper() if char in consonants else char
+        new_row.append(transformed_char)
+    new_mx.append(new_row)
+
+matrix_output(mx, "Введенная")
+matrix_output(new_mx, "Преобразованная")
