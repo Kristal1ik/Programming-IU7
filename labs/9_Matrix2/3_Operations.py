@@ -56,7 +56,6 @@ for j in range(m):
         middles[j] += b[i][j]
     middles[j] /= k
 print("Средние арифметические по столбцам матрицы B:", middles)
-count_greater_than_average = [0] * m
 counter_more_then_middle_lst = []
 for j in range(m):
     counter = 0
@@ -67,10 +66,9 @@ for j in range(m):
     print(
         f"В {j + 1} столбце {counter} элементов больше соответствующего знаечения среднего арифметического элементов "
         f"соответствующего столбца матрицы В")
-
-for i in range(k):
+for i in range(m):
     if counter_more_then_middle_lst[i] != 0:
-        for j in range(m):
+        for j in range(k):
             b[i][j] *= counter_more_then_middle_lst[j]
 
 matrix_output(b, "Преобразованная матрица B")
