@@ -26,4 +26,4 @@ for i in range(len(lst)):
 lst = lst[:index]
 print(f"Список с удаленными нечетными элементами: ")
 for i in range(index):
-    print(f"{i+1} элемент = {lst[i]}")
+    print(f"{i + 1} элемент = {lst[i]}")
