@@ -1,3 +1,5 @@
+from os import remove
+
 mx = []
 mx_n = 0
 mx_m = 0
@@ -54,15 +56,19 @@ for i in route_main:
 
 mx.append(counter_columns)
 
-sorted_indices = sorted(counter_columns, reverse=True)
-sorted_matrix = []
+pairs = []
+for i in range(mx_m):
+    pairs.append([counter_columns[i], i])
 
+sorted_pairs = sorted(pairs, key=lambda x: x[0], reverse=True)
+
+sorted_mx = []
 for row in mx:
-    sorted_row = [row[i] for i in sorted_indices]
-    sorted_matrix.append(sorted_row)
+    sorted_row = [row[index] for count, index in sorted_pairs]
+    sorted_mx.append(sorted_row)
 
 with open("out.txt", "w", encoding="utf-8") as f:
     for i in range(mx_n + 1):
         for j in range(mx_m):
-            f.write(str(sorted_matrix[i][j]) + " ")
+            f.write(str(sorted_mx[i][j]) + " ")
         f.write("\n")
