@@ -9,7 +9,7 @@ in и в файл out строки, в которых 16-чные заменит
 стоит учитывать унарные плюсы и минусы
 
 """
-
+import struct
 
 def from_16_to_2_triad(number):
     if "," in number:
@@ -56,11 +56,13 @@ def check_if_not_16(number):
             return False
     return True
 
+sentences_counter = 0
+words_counter = []
 with open("in.txt", "r", encoding="utf-8") as f_in:
     with open("out.txt", "w+", encoding="utf-8") as f_out:
         sentence = ""
         word = ""
-        word_is_written = False
+        word_counter = 0
         for line in f_in:
             for item in line:
                 if item not in " \n\t":
@@ -71,10 +73,21 @@ with open("in.txt", "r", encoding="utf-8") as f_in:
                             word = from_16_to_8(word)
                     sentence += word
                     sentence += item
+                    if len(word) != 0:
+                        word_counter += 1
                     word = ''
                 if item in ".!?":
                     sentence += word
                     f_out.write(sentence)
+                    if word != ".":
+                        word_counter += 1
+                    sentences_counter += 1
+                    words_counter.append(word_counter)
                     sentence = ""
                     word = ""
+                    word_counter = 0
 
+mask = "i" * (1 + len(words_counter))
+with open("result.bin", "w+b") as f:
+    f.write(struct.pack(mask, sentences_counter, *words_counter))
+    print(sentences_counter, words_counter)
